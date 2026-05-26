@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ame seu Mar · Frutos do Mar & Drinks · Carrinho</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f0ea;
+      font-family: 'Inter', sans-serif;
+      color: #2c2b28;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* header */
+    .header {
+      background: #fffef7;
+      border-radius: 2rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #e9e2d9;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      font-size: 2.2rem;
+      color: #b68b5c;
+    }
+
+    .logo-text h1 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: #3b2e24;
+    }
+
+    .logo-text p {
+      font-size: 0.85rem;
+      color: #8b7a6b;
+    }
+
+    .cart-widget {
+      position: relative;
+      cursor: pointer;
+      background: #ede6de;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+      border: none;
+      font-size: 0.9rem;
+      color: #5e4b36;
+    }
+
+    .cart-widget i {
+      font-size: 1.2rem;
+      color: #b68b5c;
+    }
+
+    .cart-count {
+      background: #b68b5c;
+      color: white;
+      border-radius: 30px;
+      padding: 0.1rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    /* hero */
+    .hero {
+      border-radius: 1.8rem;
+      overflow: hidden;
+      margin-bottom: 2.8rem;
+      box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 380px;
+      object-fit: cover;
+    }
+
+    /* seções */
+    .menu-section {
+      background: #ffffff;
+      border-radius: 1.8rem;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ede6df;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #3e2f22;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 3px solid #e0cfbf;
+      display: inline-block;
+    }
+
+    .section-title i {
+      color: #b68b5c;
+      margin-right: 0.6rem;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .menu-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .menu-table th {
+      text-align: left;
+      padding: 0.8rem 0.5rem 0.8rem 0;
+      font-weight: 600;
+      color: #6b5843;
+      border-bottom: 1px solid #f0e9e2;
+    }
+
+    .menu-table td {
+      padding: 0.8rem 0.5rem 0.8rem 0;
+      border-bottom: 1px solid #f5efe9;
+      vertical-align: middle;
+    }
+
+    .item-name {
+      font-weight: 500;
+    }
+
+    .item-price {
+      text-align: right;
+      font-weight: 600;
+      color: #8b694c;
+      white-space: nowrap;
+    }
+
+    .btn-add {
+      background: #f0e7df;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #5e3e2b;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-add:hover {
+      background: #e0cfbf;
+      transform: scale(0.97);
+    }
+
+    /* especial flex */
+    .specials-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      justify-content: space-between;
+    }
+    .special-card {
+      flex: 1;
+      min-width: 160px;
+      background: #fefaf6;
+      padding: 1rem;
+      border-radius: 1.2rem;
+    }
+
+    /* info grid */
+    .info-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .about-card, .contact-card {
+      flex: 1;
+      background: #fefaf6;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid #ebe2d9;
+    }
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .social-icon {
+      background: #e7dfd7;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c5843;
+      transition: 0.2s;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-top: 1px solid #e2d9d0;
+      font-size: 0.8rem;
+    }
+
+    /* MODAL CARRINHO */
+    .cart-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+    }
+    .cart-modal-content {
+      background: #fffef7;
+      max-width: 550px;
+      width: 90%;
+      border-radius: 2rem;
+      padding: 1.5rem;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+      border: 1px solid #e2d9d0;
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #e0cfbf;
+      padding-bottom: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .cart-items-list {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #f0e9e2;
+    }
+    .cart-total {
+      font-weight: 800;
+      font-size: 1.3rem;
+      text-align: right;
+      padding: 1rem 0;
+      border-top: 2px dashed #e0cfbf;
+    }
+    .payment-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 1rem;
+    }
+    .payment-btn {
+      background: #e7dfd7;
+      border: none;
+      padding: 12px;
+      border-radius: 50px;
+      flex: 1;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+    .payment-btn:hover {
+      background: #d6cbbc;
+    }
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+    .empty-cart {
+      text-align: center;
+      color: #8e7c6b;
+      padding: 1.5rem;
+    }
+    .remove-item {
+      background: none;
+      border: none;
+      color: #b68b5c;
+      cursor: pointer;
+      margin-left: 12px;
+      font-size: 0.8rem;
+    }
+    .btn-finalize {
+      background: #b68b5c;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 40px;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 16px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 0 1rem; margin: 1rem auto; }
+      .menu-section { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo-area">
+      <i class="fas fa-fish logo-icon"></i>
+      <div class="logo-text">
+        <h1>Ame seu Mar</h1>
+        <p>frutos do mar · drinks · atmosfera costeira</p>
+      </div>
+    </div>
+    <button class="cart-widget" id="openCartBtn">
+      <i class="fas fa-shopping-basket"></i> Carrinho
+      <span id="cartCountBadge" class="cart-count">0</span>
+    </button>
+  </div>
+
+  <div class="hero">
+    <img src="https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Frutos do mar frescos">
+  </div>
+
+  <!-- Bebidas frias -->
+  <div class="menu-section">
+    <h2 class="section-title"><i class="fas fa-cocktail"></i> Bebidas frias & geladas</h2>
+    <div class="table-wrapper">
+      <table class="menu-table" id="drinksTable">
+        <thead><tr><th>Item</th><th>Preço (R$)</th><th style="width: 100px;"></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Frutos do Mar -->
+  <div class="menu-section">
+    <h2 class="section-title"><i class="fas fa-utensils"></i> Frutos do mar</h2>
+    <div class="table-wrapper">
+      <table class="menu-table" id="seafoodTable">
+        <thead><tr><th>Prato</th><th>Preço (R$)</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Especiais do Chef -->
+  <div class="menu-section">
+    <h2 class="section-title"><i class="fas fa-star"></i> Especiais do Chef</h2>
+    <div class="specials-grid" id="specialsContainer"></div>
+  </div>
+
+  <div class="info-grid">
+    <div class="about-card"><h3><i class="fas fa-ship"></i> Sobre nossos frutos</h3><p>Sustentabilidade e frescor do litoral. Qualidade garantida.</p></div>
+    <div class="contact-card"><h3><i class="fas fa-comment-dots"></i> Fale conosco</h3><p><i class="fas fa-envelope"></i> contato@ameseumar.com.br</p><div class="social-links"><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a><a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a></div></div>
+  </div>
+  <footer>© 2025 Ame seu Mar · sabores que abraçam o mar · carrinho + formas de pagamento</footer>
+</div>
+
+<!-- Modal Carrinho + Pagamento -->
+<div id="cartModal" class="cart-modal">
+  <div class="cart-modal-content">
+    <div class="cart-header">
+      <h3><i class="fas fa-shopping-cart"></i> Seu pedido</h3>
+      <button class="close-modal" id="closeModalBtn">&times;</button>
+    </div>
+    <div id="cartItemsContainer">
+      <ul id="cartList" class="cart-items-list"></ul>
+      <div id="cartTotalDisplay" class="cart-total">Total: R$ 0,00</div>
+    </div>
+    <div id="paymentSection" style="margin-top: 1rem;">
+      <p style="font-weight: 500;"><i class="fas fa-credit-card"></i> Forma de pagamento</p>
+      <div class="payment-buttons" id="paymentOptions">
+        <button class="payment-btn" data-method="dinheiro">💰 Dinheiro (10% OFF)</button>
+        <button class="payment-btn" data-method="pix">📱 Pix (5% OFF)</button>
+        <button class="payment-btn" data-method="cartao">💳 Cartão crédito/débito</button>
+      </div>
+      <button id="finalizeOrderBtn" class="btn-finalize">✅ Finalizar pedido</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- MENU BASE (dados originais + preços) ----------
+  const drinksData = [
+    { name: "Suco de laranja", price: 10.00 },
+    { name: "Suco de manga", price: 10.00 },
+    { name: "Batida de coco", price: 15.00 },
+    { name: "Batida de morango", price: 15.00 },
+    { name: "Caipirinha de mamão", price: 15.00 },
+    { name: "Cerveja busweiser", price: 8.00 },
+    { name: "Cerveja itaipava", price: 7.00 },
+    { name: "Chopp", price: 6.00 },
+    { name: "Água sem gás", price: 5.00 },
+    { name: "Água com gás", price: 5.00 }
+  ];
+
+  const seafoodData = [
+    { name: "Abrotea", price: 50.00 }, { name: "Anchovas", price: 40.00 }, { name: "Arraia", price: 45.00 },
+    { name: "Camarão cozido", price: 60.00 }, { name: "Camarão frito", price: 55.00 }, { name: "Camarão grelhado", price: 65.00 },
+    { name: "Caranguejo", price: 70.00 }, { name: "Lagosta", price: 80.00 }, { name: "Lagostim", price: 75.00 },
+    { name: "Lula", price: 35.00 }, { name: "Mariscos", price: 30.00 }, { name: "Mexilão", price: 25.00 },
+    { name: "Ostras com aspargos", price: 45.00 }, { name: "Pargo", price: 50.00 }, { name: "Polvo", price: 50.00 },
+    { name: "Salmão", price: 60.00 }, { name: "Siri", price: 40.00 }
+  ];
+
+  const specialsData = [
+    { name: "Lagosta grelhada", desc: "manteiga de ervas", price: 80.00 },
+    { name: "Polvo à provençal", desc: "alho, azeite e limão", price: 50.00 },
+    { name: "Batida de coco especial", desc: "versão cremosa", price: 18.00 }
+  ];
+
+  // Carrinho: array de objetos { id, name, price, quantity }
+  let cart = [];
+
+  // Helper: gerar ID simples
+  function generateId(itemName, category) {
+    return category + "_" + itemName.replace(/\s/g, '_') + Date.now() + Math.random();
+  }
+
+  // Adicionar ao carrinho (ou incrementar se já existir, mas para UX manter itens separados? melhor agrupar por nome)
+  function addToCart(name, price) {
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ id: generateId(name, 'item'), name: name, price: price, quantity: 1 });
+    }
+    updateCartUI();
+    saveCartToStorage();
+    animateCartBadge();
+  }
+
+  // Remover item (diminuir ou remover)
+  function removeFromCart(itemId) {
+    const index = cart.findIndex(i => i.id === itemId);
+    if (index !== -1) {
+      if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+    }
+    updateCartUI();
+    saveCartToStorage();
+  }
+
+  // Remover completamente um item
+  function deleteItemCompletely(itemId) {
+    cart = cart.filter(i => i.id !== itemId);
+    updateCartUI();
+    saveCartToStorage();
+  }
+
+  // Calcular total bruto
+  function getTotalBruto() {
+    return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  }
+
+  // Renderizar modal e badge
+  function updateCartUI() {
+    const badge = document.getElementById('cartCountBadge');
+    const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+    if (badge) badge.innerText = totalItems;
+
+    // Atualizar listagem do modal se estiver aberto (manter sincronia)
+    renderCartModalContent();
+  }
+
+  function renderCartModalContent() {
+    const cartListEl = document.getElementById('cartList');
+    const totalDisplay = document.getElementById('cartTotalDisplay');
+    if (!cartListEl) return;
+    
+    if (cart.length === 0) {
+      cartListEl.innerHTML = '<div class="empty-cart"><i class="fas fa-fish"></i> Seu carrinho está vazio. Escolha seus pratos!</div>';
+      if (totalDisplay) totalDisplay.innerHTML = 'Total: R$ 0,00';
+      return;
+    }
+    
+    let html = '';
+    cart.forEach(item => {
+      const subtotal = (item.price * item.quantity).toFixed(2);
+      html += `
+        <li class="cart-item">
+          <div><strong>${item.name}</strong> <span style="font-size:0.8rem;">x${item.quantity}</span><br><span style="font-size:0.75rem; color:#8b694c;">R$ ${item.price.toFixed(2)} cada</span></div>
+          <div>R$ ${subtotal} <button class="remove-item" data-id="${item.id}" title="remover um"> <i class="fas fa-minus-circle"></i></button> <button class="remove-item" data-id="${item.id}" data-remove-all="true" title="remover tudo"><i class="fas fa-trash-alt"></i></button></div>
+        </li>
+      `;
+    });
+    cartListEl.innerHTML = html;
+    const totalBruto = getTotalBruto();
+    totalDisplay.innerHTML = `Total bruto: R$ ${totalBruto.toFixed(2)}<br><span id="discountSpan" style="font-size:0.9rem; color:#8b694c;"></span>`;
+    
+    // adicionar eventos nos botões de remoção (dinâmico)
+    document.querySelectorAll('.remove-item').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-id');
+        const removeAll = btn.getAttribute('data-remove-all') === 'true';
+        if (removeAll) {
+          deleteItemCompletely(id);
+        } else {
+          removeFromCart(id);
+        }
+      });
+    });
+  }
+
+  // Aplicar desconto conforme método escolhido (variável global)
+  let selectedPaymentMethod = null;
+  let currentDiscountPercent = 0;
+
+  function applyDiscount(method) {
+    if (method === 'dinheiro') return 10; // 10% off
+    if (method === 'pix') return 5;
+    return 0;
+  }
+
+  function updatePaymentFeedback() {
+    const totalBruto = getTotalBruto();
+    const discountPercent = currentDiscountPercent;
+    const descontoValor = totalBruto * (discountPercent / 100);
+    const totalFinal = totalBruto - descontoValor;
+    const totalDisplayDiv = document.getElementById('cartTotalDisplay');
+    if (totalDisplayDiv) {
+      if (selectedPaymentMethod) {
+        let methodName = selectedPaymentMethod === 'dinheiro' ? 'Dinheiro (10% OFF)' : (selectedPaymentMethod === 'pix' ? 'Pix (5% OFF)' : 'Cartão');
+        totalDisplayDiv.innerHTML = `Total bruto: R$ ${totalBruto.toFixed(2)}<br><span style="font-size:0.9rem; color:#2c6e2c;">${methodName}: desconto de ${discountPercent}% → R$ ${totalFinal.toFixed(2)}</span>`;
+      } else {
+        totalDisplayDiv.innerHTML = `Total bruto: R$ ${totalBruto.toFixed(2)}<br><span style="font-size:0.9rem; color:#8b694c;">Selecione uma forma de pagamento</span>`;
+      }
+    }
+  }
+
+  function handlePaymentSelection(method) {
+    selectedPaymentMethod = method;
+    currentDiscountPercent = applyDiscount(method);
+    updatePaymentFeedback();
+    // destaca visual nos botões
+    document.querySelectorAll('.payment-btn').forEach(btn => {
+      btn.style.background = '#e7dfd7';
+      btn.style.border = 'none';
+    });
+    const activeBtn = Array.from(document.querySelectorAll('.payment-btn')).find(btn => btn.getAttribute('data-method') === method);
+    if (activeBtn) activeBtn.style.background = '#d0c0b0';
+  }
+
+  // finalização com alerta e reset carrinho
+  function finalizeOrder() {
+    if (cart.length === 0) {
+      alert("Seu carrinho está vazio! Adicione itens antes de finalizar.");
+      return;
+    }
+    if (!selectedPaymentMethod) {
+      alert("Por favor, selecione uma forma de pagamento (Dinheiro, Pix ou Cartão).");
+      return;
+    }
+    const totalBruto = getTotalBruto();
+    const desconto = currentDiscountPercent;
+    const valorFinal = totalBruto - (totalBruto * desconto / 100);
+    let paymentString = "";
+    if (selectedPaymentMethod === 'dinheiro') paymentString = "Dinheiro (10% de desconto)";
+    else if (selectedPaymentMethod === 'pix') paymentString = "Pix (5% de desconto)";
+    else paymentString = "Cartão (sem desconto)";
+    
+    alert(`🍽️ Pedido finalizado com sucesso!\n\nItens: ${cart.reduce((acc,i)=> acc+i.quantity,0)} unidades.\nTotal original: R$ ${totalBruto.toFixed(2)}\n${paymentString}\nValor final: R$ ${valorFinal.toFixed(2)}\n\nAgradecemos pela preferência! 🦐🌊`);
+    
+    // limpar carrinho e fechar modal
+    cart = [];
+    selectedPaymentMethod = null;
+    currentDiscountPercent = 0;
+    updateCartUI();
+    saveCartToStorage();
+    const modal = document.getElementById('cartModal');
+    if (modal && modal.style.display === 'flex') {
+      modal.style.display = 'none';
+    }
+    renderCartModalContent(); // atualiza vazio
+    updatePaymentFeedback();
+  }
+
+  // Persistência localStorage
+  function saveCartToStorage() {
+    localStorage.setItem('ameSeuMarCart', JSON.stringify(cart));
+  }
+  function loadCartFromStorage() {
+    const saved = localStorage.getItem('ameSeuMarCart');
+    if (saved) {
+      try {
+        cart = JSON.parse(saved);
+        updateCartUI();
+      } catch(e) { cart = []; }
+    }
+  }
+
+  // animação no badge
+  function animateCartBadge() {
+    const badge = document.getElementById('cartCountBadge');
+    if (badge) {
+      badge.style.transform = 'scale(1.2)';
+      setTimeout(() => { if(badge) badge.style.transform = 'scale(1)'; }, 200);
+    }
+  }
+
+  // Renderizar tabelas e especiais dinamicamente, com botões "Adicionar"
+  function buildMenuTables() {
+    const drinksTbody = document.querySelector('#drinksTable tbody');
+    const seafoodTbody = document.querySelector('#seafoodTable tbody');
+    const specialsContainer = document.getElementById('specialsContainer');
+    
+    drinksTbody.innerHTML = '';
+    drinksData.forEach(drink => {
+      const row = drinksTbody.insertRow();
+      row.insertCell(0).innerHTML = `<span class="item-name">${drink.name}</span>`;
+      row.insertCell(1).innerHTML = `<span class="item-price">${drink.price.toFixed(2).replace('.', ',')}</span>`;
+      const btnCell = row.insertCell(2);
+      const btn = document.createElement('button');
+      btn.className = 'btn-add';
+      btn.innerHTML = '<i class="fas fa-plus"></i> Adicionar';
+      btn.onclick = () => addToCart(drink.name, drink.price);
+      btnCell.appendChild(btn);
+    });
+
+    seafoodTbody.innerHTML = '';
+    seafoodData.forEach(seafood => {
+      const row = seafoodTbody.insertRow();
+      row.insertCell(0).innerHTML = `<span class="item-name">${seafood.name}</span>`;
+      row.insertCell(1).innerHTML = `<span class="item-price">${seafood.price.toFixed(2).replace('.', ',')}</span>`;
+      const btnCell = row.insertCell(2);
+      const btn = document.createElement('button');
+      btn.className = 'btn-add';
+      btn.innerHTML = '<i class="fas fa-plus"></i> Adicionar';
+      btn.onclick = () => addToCart(seafood.name, seafood.price);
+      btnCell.appendChild(btn);
+    });
+
+    specialsContainer.innerHTML = '';
+    specialsData.forEach(special => {
+      const card = document.createElement('div');
+      card.className = 'special-card';
+      card.innerHTML = `
+        <div style="font-weight: 600;">${special.name}</div>
+        <div style="color:#6b5843; font-size:0.8rem;">${special.desc}</div>
+        <div class="item-price" style="margin:8px 0;">R$ ${special.price.toFixed(2).replace('.', ',')}</div>
+        <button class="btn-add" style="width:100%;"><i class="fas fa-plus"></i> adicionar</button>
+      `;
+      const btnAdd = card.querySelector('.btn-add');
+      btnAdd.onclick = () => addToCart(special.name, special.price);
+      specialsContainer.appendChild(card);
+    });
+  }
+
+  // modal control
+  const modal = document.getElementById('cartModal');
+  const openBtn = document.getElementById('openCartBtn');
+  const closeBtn = document.getElementById('closeModalBtn');
+  
+  function openModal() {
+    renderCartModalContent();
+    updatePaymentFeedback(); // refresh descontos
+    modal.style.display = 'flex';
+  }
+  function closeModalFunc() {
+    modal.style.display = 'none';
+  }
+  
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModalFunc);
+  window.addEventListener('click', (e) => { if(e.target === modal) closeModalFunc(); });
+  
+  // pagamento botoes
+  document.querySelectorAll('.payment-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const method = btn.getAttribute('data-method');
+      handlePaymentSelection(method);
+    });
+  });
+  document.getElementById('finalizeOrderBtn').addEventListener('click', finalizeOrder);
+  
+  // carregar dados e carrinho
+  loadCartFromStorage();
+  buildMenuTables();
+  updateCartUI(); // badge
+  renderCartModalContent();
+</script>
+</body>
+</html>
